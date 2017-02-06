@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- send lwa3 urdf to param server -->
+	<param name="robot_description" command="$(find xacro)/xacro.py '$(find schunk_lwa3)/urdf/lwa3.urdf.xacro'" />
+
+	<!-- parameter description of the CAN modules and for the corresponding trajectory controller -->
+	<rosparam command="load" ns="/powercube_chain/powercube_chain" file="$(find schunk_lwa3)/config/controller.yaml" />
+
+	<!-- this is the CANopen ROS wrapper node -->
+	<node ns="powercube_chain" name="powercube_chain" pkg="schunk_powercube_chain" type="schunk_powercube_chain" cwd="node" respawn="false" output="screen" /> 
+
+</launch>
